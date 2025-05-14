@@ -1,9 +1,8 @@
 import { Locator, Page } from "@playwright/test";
 
-export async function fillInput(locator: Locator, value: string) {
-  await locator.waitFor({ state: "visible" });
+export async function fillInput(page: Page, selector: string, value: string) {
   nullCheck(value);
-  await locator.fill(value);
+  await page.fill(selector, value);
 }
 
 function nullCheck(value: string) {
@@ -12,9 +11,8 @@ function nullCheck(value: string) {
     throw new Error("Value is null");
   }
 }
-export async function doClick(locator: Locator) {
-  await locator.waitFor({ state: "visible" });
-  await locator.click();
+export async function doClick(page: Page, selector: string) {
+  await page.click(selector);
 }
 
 export async function getAllElements(page: Page, selector: string) {
