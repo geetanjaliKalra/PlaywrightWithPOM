@@ -6,7 +6,7 @@ export async function fillInput(locator: Locator, value: string) {
   await locator.fill(value);
 }
 
- function nullCheck(value: string) {
+function nullCheck(value: string) {
   if (value === null) {
     console.log("Value is null");
     throw new Error("Value is null");
