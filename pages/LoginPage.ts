@@ -1,11 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { appConfig } from "../Constants/appConstants";
-import {
-  doClick,
-  fillInput,
-  fillInput,
-  getAllElements,
-} from "../utilities/elementutil";
+import { doClick, fillInput, getAllElements } from "../utilities/elementutil";
 
 export class LoginPage {
   readonly page: Page;
