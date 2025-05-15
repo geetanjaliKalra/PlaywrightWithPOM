@@ -17,8 +17,25 @@ export async function doClick(page: Page, selector: string) {
 
 export async function getAllElements(page: Page, selector: string) {
   const elements = await page.locator(selector).allTextContents();
+  const elementLabel: string[] = [];
+  // console.log(`Length of elemets is elements.length`);
+  // console.log(`testing what is printing in elements ${elements}`);
   for (const e of elements) {
-    console.log(`Grid has below links ${e}`);
+    console.log(`Elements text is ${e}`);
+    elementLabel.push(e);
   }
-  return elements;
+  console.log(elementLabel);
+  return elementLabel;
 }
+
+// export async function getAllElementsTest(page: Page, selector: string) {
+//   const elementLocators = await page.locator(selector).all();
+//   const elementText: string[] = [];
+//   for (const e of elementLocators) {
+//     const text = await e.locator("a").first().textContent();
+//     if (text !== null) {
+//       elementText.push(text);
+//     }
+//   }
+//   return elementText;
+// }
