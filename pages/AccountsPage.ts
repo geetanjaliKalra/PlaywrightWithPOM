@@ -1,11 +1,21 @@
 import { Page } from "@playwright/test";
-import { getAllElements } from "../utilities/elementutil";
+import {
+  doClick,
+  fillInput,
+  fillInputUsingPlaceholder,
+  getAllElements,
+} from "../utilities/elementutil";
+import { title } from "process";
+import { log } from "console";
 
 export class AccountsPage {
-  readonly page: Page;
+  page: Page;
   readonly searchField: string = "Search";
   readonly logoutLink: string = "Logout";
   readonly menuItems: string = "//ul[@class='nav navbar-nav']/li/a";
+  readonly leftGrid: string =
+    "//div[@id='content']//li|//div[@id='content']/h2";
+  readonly searchBtn: string = "#search button";
 
   constructor(page) {
     this.page = page;
@@ -26,6 +36,18 @@ export class AccountsPage {
       this.page,
       this.menuItems
     );
-    return await actualMenuItems;
+    return actualMenuItems;
+  }
+
+  async getLeftGridItems() {
+    const actualItems = await getAllElements(this.page, this.leftGrid);
+    return actualItems;
+  }
+
+  async searchItem(searchItem) {
+    await fillInputUsingPlaceholder(this.page, this.searchField, searchItem);
+    await doClick(this.page, this.searchBtn);
+    console.log(`Search page title is ${await this.page.title()}`);
+    //return await this.page.title();
   }
 }
