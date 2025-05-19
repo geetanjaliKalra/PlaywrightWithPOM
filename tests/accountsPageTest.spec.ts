@@ -16,26 +16,28 @@ test.beforeEach("Accounts Page test", async ({ page }) => {
   await loginPage.doLogin(appConfig.username, appConfig.password);
 });
 
-test("Search field visible test", async ({ page }) => {
-  expect(accountsPage.isSearchFieldVisible).toBeTruthy();
+test("Search field visible test", async () => {
+  expect(accountsPage.isSearchFieldVisible()).toBeTruthy();
 });
 
-test("Logout Link visible test", async ({ page }) => {
+test("Logout Link visible test", async () => {
   expect(accountsPage.isLogoutLinkVisible).toBeTruthy();
 });
 
-test("Menu Items count test", async ({ page }) => {
-  const expectedMenuItems = [
-    "Desktops",
-    "Laptops & Notebooks",
-    "Components",
-    "Tablets",
-    "Software",
-    "Phones & PDAs",
-    "Cameras",
-    "MP3 Players",
-  ];
+test("Menu Items count test", async () => {
   const actualMenuItems = await accountsPage.getMenuItems();
   console.log(actualMenuItems);
-  expect(actualMenuItems).toEqual(expectedMenuItems);
+  expect(actualMenuItems).toEqual(appConfig.expectedMenuItems);
+});
+
+test("Accounts Page Grid test", async () => {
+  const actualItems = await accountsPage.getLeftGridItems();
+  expect(actualItems).toEqual(appConfig.accountsPageLefftGridItems);
+});
+
+test("Search test", async () => {
+  await accountsPage.searchItem(appConfig.searchItem);
+  const expectedTitle = "Search - " + appConfig.searchItem;
+  console.log(expectedTitle);
+  await expect(accountsPage.page).toHaveTitle(expectedTitle);
 });
