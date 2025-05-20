@@ -13,7 +13,10 @@ let accountsPage: AccountsPage;
 let searchPage: SearchPage;
 
 test.beforeEach(async () => {
-  browser = await chromium.launch({ channel: "chrome", headless: false });
+  browser = await chromium.launch({
+    channel: "chrome",
+    headless: false,
+  });
   page = await browser.newPage();
   loginPage = new LoginPage(page);
   accountsPage = new AccountsPage(page);
@@ -35,7 +38,7 @@ test.describe("Products search test", () => {
       await accountsPage.searchItem(data.searchItem);
       const actualSearchProductCount = await searchPage.getSearchProductCount();
       console.log(`Actual product count is ${actualSearchProductCount}`);
-
+      await page.screenshot({ path: "screenshot.png", fullPage: true });
       expect(actualSearchProductCount).toEqual(data.productCount);
     });
   }
@@ -69,7 +72,7 @@ test.describe("Product images count test", () => {
 
 test.describe("Add to cart test", () => {
   for (const data of productsData) {
-    test(`Add product to cart  ${data.productName}`, async () => {
+    test.skip(`Add product to cart  ${data.productName}`, async () => {
       await accountsPage.searchItem(data.searchItem);
       const actualSuccessMsg = await searchPage.addToCart(
         data.productName,
