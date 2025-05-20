@@ -16,6 +16,9 @@ test("suggestionlist test", async () => {
     "//div[contains(@class,'s-suggestion') and @role='button']"
   );
 
+  await page
+    .locator("//div[contains(@class,'s-suggestion') and @role='button']")
+    .all();
   for (const e of suggList) {
     const suggestion = await e.textContent();
     console.log(suggestion);

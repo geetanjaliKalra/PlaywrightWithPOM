@@ -41,6 +41,8 @@ test.only("File upload test confirmation prompt ", async () => {
 
   page.on("dialog", async (alert) => {
     expect(alert.type()).toBe("prompt");
+    console.log(alert.type());
+
     let text = "Geetu";
     alert.accept(text);
     expect(await page.locator("#result")).toHaveText(`You entered: ${text}`);
