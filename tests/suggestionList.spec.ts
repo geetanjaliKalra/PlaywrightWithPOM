@@ -12,9 +12,13 @@ test("suggestionlist test", async () => {
   await page.waitForSelector(
     "//div[contains(@class,'s-suggestion') and @role='button']"
   );
-  let suggList = await page.$$(
-    "//div[contains(@class,'s-suggestion') and @role='button']"
-  );
+  // let suggList = await page.$$(
+  //   "//div[contains(@class,'s-suggestion') and @role='button']"
+  // );
+
+  let suggList = await page
+    .locator("//div[contains(@class,'s-suggestion') and @role='button']")
+    .all();
 
   await page
     .locator("//div[contains(@class,'s-suggestion') and @role='button']")
