@@ -4,10 +4,9 @@
   "description": "Playwright test project",
   "main": "index.js",
   "type": "module",
-  "author": "Your Name",
-  "license": "MIT",
+  "author": "Geetanjali",
   "devDependencies": {
-    "@playwright/test": "^1.52.0",
+    "@playwright/test": "^1.53.1",
     "@types/node": "^22.15.17",
     "allure-playwright": "^3.2.2"
   },

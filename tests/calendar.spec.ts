@@ -5,9 +5,10 @@ import { waitForDebugger } from "inspector";
 let browser: Browser;
 let page: Page;
 test("calendar test", async ({}) => {
-  const monthToBeSelected = "July 2026";
-  const dateToBeSelected = "31";
-  const dateLocator = `//div[text()='${monthToBeSelected}']/../..//div[contains(@class,'DayPicker-Day')and @aria-disabled='false' ]`;
+  const monthToBeSelected = "May 2025";
+  const dateToBeSelected = "3";
+  const dateLocator = `//div[text()='${monthToBeSelected}']/../..//div[contains(@class,'DayPicker-Day')] `;
+  // and @aria-disabled='false']`;
   const monthSelector = "//div[@class='DayPicker-Caption']";
   const nextMonthLocator = "[aria-label='Next Month']";
 
@@ -33,15 +34,18 @@ test("calendar test", async ({}) => {
 async function selectDate(dateLocator: string, dateToBeSelected: string) {
   const calDates = await page.locator(dateLocator).all();
   for (const date of calDates) {
-    console.log(date);
+    console.log("inside selectDate for loop ", await date.textContent());
     if ((await date.textContent()) == dateToBeSelected) {
-      if (await date.isVisible()) {
-        date.click();
+      await page.pause();
+      if (await date.isEnabled()) {
+        console.log("inside if of for loop", await date.textContent());
+        console.log("inside if of for loop", date);
+        await date.click();
+        break;
+      } else {
+        console.log("Please choose date within 378 days from current date");
         break;
       }
-    } else {
-      console.log("Please choose date within 378 days");
-      break;
     }
   }
 }
@@ -58,6 +62,7 @@ async function selectDepartDate(
     let displayedMonths = await page.locator(monthSelector).allTextContents();
     console.log(`inside loop ${++counter} , ${displayedMonths}`);
     if (displayedMonths.includes(monthToBeSelected)) {
+      await page.pause();
       await selectDate(dateLocator, dateToBeSelected);
       break;
     } else {
